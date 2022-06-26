@@ -3,7 +3,7 @@ from fastapi import Response, status, HTTPException, Depends, APIRouter
 from .. import models, schemas, oauth2
 from sqlalchemy.orm import Session
 from ..database import get_db
-from typing import List, Optional # LIST is required to have response of list of post instances
+from typing import List # LIST is required to have response of list of post instances
 from sqlalchemy import func
 
 router = APIRouter(
@@ -40,8 +40,6 @@ def createPosts(newPost: schemas.PostCreate, db: Session = Depends(get_db),
 
     # Instead of listing all fields in the Post param, instead convert post object to dict
     #   (Is possible since Post follows Pydantic model, easily convertable into dict)
-    print(curUser.email)
-
     #Creating instance of Post type auto adds fields as entry in database
     post = models.Post(**newPost.dict(), userid = curUser.id)
 

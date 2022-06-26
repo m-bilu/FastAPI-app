@@ -1,3 +1,7 @@
 __pycache__
 venv/
 .env
+ssh
+ssh.pub
+calculations.py
+test_calculations.py

@@ -2,7 +2,7 @@ import sys
 from fastapi import FastAPI
 from .database import engine
 from . import models
-from .routers import post, user, auth, vote
+from .routers import post, user, auth, vote, comment
 from .config import Settings
 from fastapi.middleware.cors import CORSMiddleware # USED TO BYPASS CORS
 
@@ -41,6 +41,7 @@ app.include_router(post.router)
 app.include_router(user.router)
 app.include_router(auth.router)
 app.include_router(vote.router)
+app.include_router(comment.router)
 
 
 

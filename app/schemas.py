@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from pickletools import int4
 from click import password_option
 from pydantic import BaseModel, EmailStr
@@ -38,7 +38,6 @@ class PostBase(BaseModel):
     title: str
     content: str
     published: bool = True
-    created_at: datetime
 
 # ALLOWS us to use inheritance
 class PostCreate(PostBase):
@@ -48,6 +47,8 @@ class PostResponse(PostBase):
 
     userid: int
     user: UserResponse
+    created_at: datetime
+
 
     # FOR response models, u must add this line for some reason, dont forget!!
     class Config:
@@ -89,9 +90,27 @@ class VoteResponse(VoteBase):
 
     # FOR response models, u must add this line for some reason, dont forget!!
     class Config:
-        orm_mode = True;
+        orm_mode = True
     # Reason: This line tells Pydantic's Model to read the response as an ORM model
         # instead of a dict (since pydantic mainly works with dicts, and we are using an 
         # ORM to communicate with PostgreSQL, so our response is originally ORM)
+
+
+
+############## COMMENTS SCHEMAS
+class CommentBase(BaseModel):
+    content: str
+
+class Comment(CommentBase):
+    pass
+
+class CommentResponse(CommentBase):
+    postid: int
+    userid: int
+    id: int
+    created_at: datetime
+
+    class Config:
+        orm_mode = True
 
 
